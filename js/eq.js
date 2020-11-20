@@ -6,7 +6,7 @@ document.getElementById('play')?.addEventListener('click', async () => {
 
 	console.log("Sound Start")
 	// Calling the original loop.
-	const player1 = new Tone.Player("./samples/eqm01b.mp3").toDestination();
+	const player1 = new Tone.Player("./samples/eqm01b.mp3").toDestination(eq1);
 	player1.autostart = true;
 	player1.loop = true;
 
@@ -18,62 +18,45 @@ document.getElementById('play')?.addEventListener('click', async () => {
 	})
 
 	var eq1 = new Tone.EQ3({
-		low: "8",
-		mid: "8",
-		high: "8"
+		low: "3",
+		mid: "3",
+		high: "3"
 	}).toDestination();
+	
 
 
 	// connect the player to the eq
 	player1.connect(eq1)
+	// eq1.connect(player1);
 
 
 
-	sliderLow.on('change', function (v) {
-		eq1.low.value = sliderLow.value;
-		console.log(eq1);
+
+	multislider.on('change', function (v) {
+		eq1.low.value = multislider.values[0];
+		eq1.mid.value = multislider.values[1];
+		eq1.high.value = multislider.values[2];
 	});
 
-	sliderMid.on('change', function (v) {
-		eq1.mid.value = sliderMid.value;
-		console.log(eq1);
-	});
-
-	sliderHigh.on('change', function (v) {
-		eq1.high.value = sliderHigh.value;
-		console.log(eq1);
-	});
+	multislider.on('change',function(v) {
+		console.log(eq1.low.value);
+	  })
 
 })
-var sliderLow = new Nexus.Slider('#low', {
-	'size': [120, 20],
-	'mode': 'relative',  // 'relative' or 'absolute'
-	'min': 0,
-	'max': 10,
+
+
+var multislider = new Nexus.Multislider('#multi', {
+	'size': [200, 100],
+	'numberOfSliders': 3,
+	'min': -18,
+	'max': 18,
 	'step': 0,
-	'value': 8,
-	'mode': 'line'
+	'candycane': 2,
+	'values': [3, 3, 3],
+	'smoothing': 0,
+	'mode': 'bar'  // 'bar' or 'line'
 })
 
-var sliderMid = new Nexus.Slider('#mid', {
-	'size': [120, 20],
-	'mode': 'relative',  // 'relative' or 'absolute'
-	'min': 0,
-	'max': 10,
-	'step': 0,
-	'value': 8,
-	'mode': 'bar'
-})
-
-var sliderHigh = new Nexus.Slider('#high', {
-	'size': [120, 20],
-	'mode': 'relative',  // 'relative' or 'absolute'
-	'min': 0,
-	'max': 10,
-	'step': 0,
-	'value': 8,
-	'mode': 'bar'
-})
 
 
 
