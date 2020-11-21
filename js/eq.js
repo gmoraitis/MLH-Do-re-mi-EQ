@@ -1,7 +1,7 @@
 
 
 // Tonejs Sample player creation
-const player1 = new Tone.Player("./samples/eqm01b.mp3").toDestination();
+const player1 = new Tone.Player("./samples/sample1.mp3").toDestination();
 
 
 // Multislider Nexus Creation
